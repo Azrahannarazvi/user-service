@@ -1,10 +1,8 @@
 package com.example.user_service.controller;
 
 import com.example.user_service.dto.UserResponse;
-import com.example.user_service.model.User;
 import com.example.user_service.service.UserService;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,17 +19,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
 
-        User user = userService.getUserById(id);
-
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        UserResponse response = new UserResponse(
-                user.getId(),
-                user.getName(),
-                user.getEmail()
-        );
+        UserResponse response = userService.getUserById(id);
 
         return ResponseEntity.ok(response);
     }
